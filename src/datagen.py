@@ -1,12 +1,5 @@
 import random
 
-parameter = dict(
-            fanOut = 3,
-            leafFanOut = 100,
-            height = 8,
-            overlap = 0.2
-        )
-
 nodeIdCounter = 0
 class Node(object):
     def __init__(self, children=None, data=None):
@@ -39,10 +32,14 @@ def buildTree(parameter, lower, upper, height=0):
     def end(i):
         return (i+1+x) * N/k + lower
 
-    dataRanges = [(start(i), end(i)) for i in range(k)]
-    children = [buildTree(parameter, r[0], r[1], height+1) for r in dataRanges]
+    node = Node()
+    if parameter.get('max') and node.id > parameter.get('max'):
+        node.children = []
+    else:
+        dataRanges = [(start(i), end(i)) for i in range(k)]
+        node.children = [buildTree(parameter, r[0], r[1], height+1) for r in dataRanges]
     
-    return Node(children=children)
+    return node
 
 def printTree(node, indent=None):
     "Prints a tree nicely"
@@ -59,3 +56,9 @@ def printTree(node, indent=None):
     if node.children:
         for c in node.children:
             printTree(c, indent=indent + "| ")
+
+def treeSize(node):
+    if len(node.children) == 0:
+        return 1
+    else:
+        return sum(treeSize(c) for c in node.children) + 1

@@ -4,9 +4,7 @@ import query
 import time
 from matplotlib.pylab import *
 
-"""
-runtime versus space
-"""
+name = "hist"
 
 N = 100000
 option = dict(fanOut=3, leafFanOut=5, height=8, overlap=0.2)
@@ -39,9 +37,9 @@ dur     = [x["dur"] for x in obs]
 
 figure(1)
 hist(fastDur + dur, bins=100)
+savefig("%s_1.png" % name)
 
 figure(2)
 hist(dur)
+savefig("%s_2.png" % name)
 
-show(1)
-show(2)

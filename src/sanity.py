@@ -4,7 +4,7 @@ import query
 import time
 
 N = 10000
-p = dict(fanOut=3, leafFanOut=5, height=8, overlap=0.2)
+p = dict(fanOut=3, leafFanOut=5, height=8, overlap=0.2, max=100)
 tree = datagen.buildTree(p, 0, N)
 index.buildIndex(tree, dict(capacity=2*N, error_rate=0.1))
 index.sparsify(tree, 0.5)
