@@ -62,3 +62,11 @@ def treeSize(node):
         return 1
     else:
         return sum(treeSize(c) for c in node.children) + 1
+
+def bfSize(node):
+    c = 1 if node.useBF else 0
+    if len(node.children) == 0:
+        return c
+    else:
+        return sum(bfSize(x) for x in node.children) + c
+
